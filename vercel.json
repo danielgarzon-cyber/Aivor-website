@@ -1,5 +1,5 @@
 {
-    "rewrites": [
-          { "source": "/(.*)", "destination": "/D-Tech/aivor-website.html" }
-    ]
+      "rewrites": [
+              { "source": "/((?!api/).*)", "destination": "/D-Tech/aivor-website.html" }
+      ]
 }
