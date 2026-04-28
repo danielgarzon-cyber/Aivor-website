@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 170">
+  <rect width="680" height="170" fill="#F5EDD8"/>
+
+  <!-- ══ A — trazos curvos, nodos huecos ══ -->
+  <!-- pierna izquierda -->
+  <path d="M 32,152 C 36,118 56,70 86,20"
+        stroke="#0A1628" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- pierna derecha -->
+  <path d="M 86,20 C 116,70 136,118 140,152"
+        stroke="#0A1628" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- travesaño curvo (curva hacia abajo en el centro) -->
+  <path d="M 54,102 Q 86,112 118,102"
+        stroke="#0A1628" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- nodos A — huecos -->
+  <circle cx="86"  cy="20"  r="10" fill="white" stroke="#0A1628" stroke-width="6"/>
+  <circle cx="26"  cy="152" r="10" fill="white" stroke="#0A1628" stroke-width="6"/>
+  <circle cx="146" cy="152" r="10" fill="white" stroke="#0A1628" stroke-width="6"/>
+
+  <!-- ══ i — trazo vertical, nodos huecos ══ -->
+  <!-- dot-nodo arriba -->
+  <circle cx="172" cy="26"  r="10" fill="white" stroke="#0A1628" stroke-width="6"/>
+  <!-- trazo -->
+  <line x1="172" y1="46" x2="172" y2="142"
+        stroke="#0A1628" stroke-width="9" stroke-linecap="round"/>
+  <!-- nodo abajo -->
+  <circle cx="172" cy="152" r="10" fill="white" stroke="#0A1628" stroke-width="6"/>
+
+  <!-- ══ V — bold condensado ══ -->
+  <path d="M 196,18 L 224,18 L 268,148 L 312,18 L 340,18 L 268,164 Z"
+        fill="#0A1628"/>
+
+  <!-- ══ O — bold condensado (sin nodos — solo la O clásica) ══ -->
+  <!-- O sólida usando path even-odd para el hueco interior -->
+  <path fill-rule="evenodd" fill="#0A1628" d="
+    M 360,86 C 360,42 380,14 418,14 C 456,14 476,42 476,86
+    C 476,130 456,158 418,158 C 380,158 360,130 360,86 Z
+    M 378,86 C 378,120 394,140 418,140 C 442,140 458,120 458,86
+    C 458,52 442,32 418,32 C 394,32 378,52 378,86 Z
+  "/>
+
+  <!-- ══ R — bold condensado ══ -->
+  <path fill-rule="evenodd" fill="#0A1628" d="
+    M 496,152 L 496,18 L 556,18
+    C 624,18 624,110 556,112
+    L 542,112 L 618,152 L 590,152 L 516,118 L 510,118 L 510,152 Z
+    M 510,38 C 510,38 568,38 568,64
+    C 568,90 510,90 510,90 Z
+  "/>
+</svg>

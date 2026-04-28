@@ -1,0 +1,142 @@
+<svg width="100%" viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Mockup de Aivor: laptop y celular con carteles flotantes</title>
+<desc>Ilustración con laptop mostrando el dashboard de Aivor, celular con la app móvil, y tarjetas flotantes con métricas de asesoría tecnológica.</desc>
+
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<clipPath id="screenClip"><rect x="120" y="115" width="360" height="215" rx="4"/></clipPath>
+<clipPath id="phoneClip"><rect x="455" y="280" width="155" height="280" rx="20"/></clipPath>
+</defs>
+
+<circle cx="180" cy="380" r="95" fill="none" stroke="#1A52E5" stroke-width="0.5" opacity="0.35"/>
+<circle cx="180" cy="380" r="4" fill="#1A52E5"/>
+<circle cx="540" cy="220" r="60" fill="none" stroke="#1A52E5" stroke-width="0.5" opacity="0.25"/>
+
+<rect x="105" y="95" width="390" height="255" rx="10" fill="#0B1437"/>
+<rect x="115" y="105" width="370" height="235" rx="4" fill="#FFFFFF"/>
+<path d="M75 350 L525 350 L505 372 L95 372 Z" fill="#0B1437"/>
+<rect x="260" y="350" width="80" height="6" rx="2" fill="#1A52E5" opacity="0.3"/>
+
+<g clip-path="url(#screenClip)">
+<rect x="120" y="115" width="360" height="28" fill="#0B1437"/>
+<text x="132" y="133" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#FFFFFF">Ai</text>
+<text x="143" y="133" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#1A52E5">vor</text>
+<text x="178" y="133" font-family="Inter, sans-serif" font-size="9" fill="#FFFFFF" opacity="0.6">Panel de asesoría</text>
+<circle cx="465" cy="129" r="5" fill="#1A52E5"/>
+
+<rect x="128" y="153" width="80" height="42" rx="4" fill="#F4F6FB"/>
+<text x="135" y="166" font-family="Inter, sans-serif" font-size="7" fill="#0B1437" opacity="0.6">CLIENTES</text>
+<text x="135" y="184" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0B1437">12</text>
+<text x="158" y="184" font-family="Inter, sans-serif" font-size="7" fill="#1A52E5">+3</text>
+
+<rect x="214" y="153" width="80" height="42" rx="4" fill="#F4F6FB"/>
+<text x="221" y="166" font-family="Inter, sans-serif" font-size="7" fill="#0B1437" opacity="0.6">AHORRO MES</text>
+<text x="221" y="184" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0B1437">38%</text>
+
+<rect x="300" y="153" width="80" height="42" rx="4" fill="#F4F6FB"/>
+<text x="307" y="166" font-family="Inter, sans-serif" font-size="7" fill="#0B1437" opacity="0.6">PROYECTOS</text>
+<text x="307" y="184" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0B1437">7</text>
+
+<rect x="386" y="153" width="86" height="42" rx="4" fill="#1A52E5"/>
+<text x="393" y="166" font-family="Inter, sans-serif" font-size="7" fill="#FFFFFF" opacity="0.85">ALERTAS IT</text>
+<text x="393" y="184" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#FFFFFF">2</text>
+<text x="416" y="184" font-family="Inter, sans-serif" font-size="7" fill="#FFFFFF" opacity="0.85">ATENDER</text>
+
+<text x="135" y="215" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#0B1437">Adopción tecnológica</text>
+
+<rect x="128" y="222" width="252" height="100" rx="4" fill="#F4F6FB"/>
+<line x1="138" y1="245" x2="370" y2="245" stroke="#0B1437" stroke-width="0.3" opacity="0.15"/>
+<line x1="138" y1="275" x2="370" y2="275" stroke="#0B1437" stroke-width="0.3" opacity="0.15"/>
+<line x1="138" y1="305" x2="370" y2="305" stroke="#0B1437" stroke-width="0.3" opacity="0.15"/>
+<polyline points="140,300 165,290 190,278 215,268 240,250 265,242 290,230 315,225 340,215 365,205" fill="none" stroke="#1A52E5" stroke-width="1.5"/>
+<polyline points="140,300 165,290 190,278 215,268 240,250 265,242 290,230 315,225 340,215 365,205 365,315 140,315" fill="#1A52E5" opacity="0.12"/>
+<circle cx="365" cy="205" r="2.5" fill="#1A52E5"/>
+
+<rect x="386" y="207" width="86" height="115" rx="4" fill="#F4F6FB"/>
+<text x="393" y="220" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0B1437">Servicios activos</text>
+<rect x="393" y="226" width="6" height="6" rx="1" fill="#1A52E5"/>
+<text x="403" y="232" font-family="Inter, sans-serif" font-size="6.5" fill="#0B1437">IaaS Oracle</text>
+<rect x="393" y="238" width="6" height="6" rx="1" fill="#1A52E5"/>
+<text x="403" y="244" font-family="Inter, sans-serif" font-size="6.5" fill="#0B1437">Salesforce CRM</text>
+<rect x="393" y="250" width="6" height="6" rx="1" fill="#1A52E5"/>
+<text x="403" y="256" font-family="Inter, sans-serif" font-size="6.5" fill="#0B1437">Ciberseguridad</text>
+<rect x="393" y="262" width="6" height="6" rx="1" fill="#1A52E5" opacity="0.4"/>
+<text x="403" y="268" font-family="Inter, sans-serif" font-size="6.5" fill="#0B1437">IA aplicada</text>
+<rect x="393" y="274" width="6" height="6" rx="1" fill="#1A52E5" opacity="0.4"/>
+<text x="403" y="280" font-family="Inter, sans-serif" font-size="6.5" fill="#0B1437">SaaS auditados</text>
+<line x1="393" y1="290" x2="465" y2="290" stroke="#0B1437" stroke-width="0.3" opacity="0.2"/>
+<text x="393" y="302" font-family="Inter, sans-serif" font-size="6.5" fill="#0B1437" opacity="0.6">Sin sobrecostos</text>
+<text x="393" y="313" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#1A52E5">100% honesto</text>
+</g>
+
+<rect x="450" y="275" width="165" height="290" rx="22" fill="#0B1437"/>
+<rect x="455" y="280" width="155" height="280" rx="18" fill="#FFFFFF"/>
+<rect x="510" y="285" width="45" height="6" rx="3" fill="#0B1437"/>
+<rect x="510" y="552" width="45" height="3" rx="1.5" fill="#0B1437" opacity="0.3"/>
+
+<g clip-path="url(#phoneClip)">
+<text x="467" y="312" font-family="Inter, sans-serif" font-size="9" fill="#0B1437" opacity="0.6">Hola,</text>
+<text x="467" y="326" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#0B1437">Daniel G.</text>
+
+<rect x="465" y="338" width="135" height="62" rx="6" fill="#1A52E5"/>
+<text x="473" y="352" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#FFFFFF" opacity="0.85">RECOMENDACIÓN</text>
+<text x="473" y="370" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#FFFFFF">Renegociar</text>
+<text x="473" y="383" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#FFFFFF">licencias SaaS</text>
+<text x="473" y="394" font-family="Inter, sans-serif" font-size="7" fill="#FFFFFF" opacity="0.8">ahorro estimado: $4.8K/mes</text>
+
+<text x="467" y="420" font-family="Inter, sans-serif" font-size="8" font-weight="500" fill="#0B1437" opacity="0.7">CLIENTES ACTIVOS</text>
+
+<rect x="465" y="427" width="135" height="36" rx="6" fill="#F4F6FB"/>
+<circle cx="478" cy="445" r="9" fill="#1A52E5"/>
+<text x="478" y="448" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#FFFFFF" text-anchor="middle">DT</text>
+<text x="493" y="443" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#0B1437">D-Tech Cliente A</text>
+<text x="493" y="455" font-family="Inter, sans-serif" font-size="7" fill="#1A52E5">Migración IaaS · fase 2</text>
+
+<rect x="465" y="467" width="135" height="36" rx="6" fill="#F4F6FB"/>
+<circle cx="478" cy="485" r="9" fill="#0B1437"/>
+<text x="478" y="488" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#FFFFFF" text-anchor="middle">CR</text>
+<text x="493" y="483" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#0B1437">CRM PyME</text>
+<text x="493" y="495" font-family="Inter, sans-serif" font-size="7" fill="#0B1437" opacity="0.6">Auditoría Salesforce</text>
+
+<rect x="465" y="507" width="135" height="36" rx="6" fill="#F4F6FB"/>
+<circle cx="478" cy="525" r="9" fill="#1A52E5" opacity="0.6"/>
+<text x="478" y="528" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#FFFFFF" text-anchor="middle">IA</text>
+<text x="493" y="523" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#0B1437">Piloto IA interno</text>
+<text x="493" y="535" font-family="Inter, sans-serif" font-size="7" fill="#0B1437" opacity="0.6">Definiendo alcance</text>
+</g>
+
+<rect x="138" y="60" width="170" height="32" rx="16" fill="#FFFFFF" stroke="#0B1437" stroke-width="0.5" opacity="0.95"/>
+<text x="223" y="80" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#0B1437" text-anchor="middle">DASHBOARD AIVOR</text>
+
+<rect x="335" y="35" width="135" height="50" rx="8" fill="#FFFFFF" stroke="#0B1437" stroke-width="0.5"/>
+<circle cx="354" cy="60" r="11" fill="#E6EBFA"/>
+<path d="M350 64 L358 56 M354 56 L358 56 L358 60" fill="none" stroke="#1A52E5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="372" y="56" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#0B1437">3 clientes nuevos</text>
+<text x="372" y="71" font-family="Inter, sans-serif" font-size="10" fill="#0B1437" opacity="0.6">este trimestre</text>
+
+<rect x="500" y="180" width="170" height="50" rx="8" fill="#FFFFFF" stroke="#0B1437" stroke-width="0.5"/>
+<circle cx="519" cy="205" r="11" fill="#E6EBFA"/>
+<path d="M514 207 L519 201 L524 207" fill="none" stroke="#1A52E5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="537" y="201" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#0B1437">Adopción +28%</text>
+<text x="537" y="216" font-family="Inter, sans-serif" font-size="10" fill="#0B1437" opacity="0.6">vs. trimestre anterior</text>
+
+<rect x="20" y="395" width="170" height="50" rx="8" fill="#FFFFFF" stroke="#0B1437" stroke-width="0.5"/>
+<circle cx="39" cy="420" r="11" fill="#E6EBFA"/>
+<path d="M34 420 L37 423 L44 416" fill="none" stroke="#1A52E5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="57" y="416" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#0B1437">94% sin sobrecostos</text>
+<text x="57" y="431" font-family="Inter, sans-serif" font-size="10" fill="#0B1437" opacity="0.6">en licencias auditadas</text>
+
+<rect x="245" y="510" width="180" height="50" rx="8" fill="#FFFFFF" stroke="#0B1437" stroke-width="0.5"/>
+<circle cx="264" cy="535" r="11" fill="#E6EBFA"/>
+<path d="M258 535 L262 535 L264 530 L266 540 L268 533 L270 535 L274 535" fill="none" stroke="#1A52E5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="282" y="531" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#0B1437">0 brechas activas</text>
+<text x="282" y="546" font-family="Inter, sans-serif" font-size="10" fill="#0B1437" opacity="0.6">monitoreo 24/7</text>
+
+<rect x="135" y="575" width="125" height="32" rx="16" fill="#FFFFFF" stroke="#0B1437" stroke-width="0.5" opacity="0.95"/>
+<text x="197" y="595" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#0B1437" text-anchor="middle">APP MÓVIL</text>
+
+<text x="660" y="600" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#0B1437" text-anchor="end">Ai<tspan fill="#1A52E5">vor</tspan></text>
+<text x="660" y="613" font-family="Inter, sans-serif" font-size="9" fill="#0B1437" opacity="0.55" text-anchor="end">Tecnología honesta para empresas reales</text>
+</svg>
