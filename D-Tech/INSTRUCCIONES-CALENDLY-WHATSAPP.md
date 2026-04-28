@@ -62,7 +62,7 @@ const AIVOR_CONFIG = {
   CALENDLY_URL: 'https://calendly.com/danielgarzon-aivor/diagnostico-30min',
   WHATSAPP_NUMBER: '573102776800',
   WHATSAPP_MESSAGE: 'Hola Daniel, vi el sitio de Aivor y me gustaría agendar mi diagnóstico tecnológico gratuito.',
-  CONTACT_EMAIL: 'danielgarzon@aivor.org',
+  CONTACT_EMAIL: 'Gerencia@aivor.org',
 };
 ```
 
