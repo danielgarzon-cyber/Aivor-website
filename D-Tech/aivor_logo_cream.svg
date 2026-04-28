@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 185" width="760" height="185">
+  <rect width="760" height="185" fill="#F5EDD8"/>
+
+  <!-- ══ A  (circuit-node style) ══ -->
+  <!-- left leg  -->
+  <path d="M 34,158 C 38,125 58,76 91,23"
+        stroke="#0A1628" stroke-width="9.5" fill="none" stroke-linecap="round"/>
+  <!-- right leg -->
+  <path d="M 91,23 C 124,76 144,125 148,158"
+        stroke="#0A1628" stroke-width="9.5" fill="none" stroke-linecap="round"/>
+  <!-- crossbar  -->
+  <path d="M 59,107 Q 91,100 123,107"
+        stroke="#0A1628" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- nodes -->
+  <circle cx="91"  cy="23"  r="11" fill="#0A1628"/>
+  <circle cx="27"  cy="158" r="11" fill="#0A1628"/>
+  <circle cx="155" cy="158" r="11" fill="#0A1628"/>
+
+  <!-- ══ i  (circuit-node style) ══ -->
+  <circle cx="183" cy="29"  r="11" fill="#0A1628"/>
+  <line x1="183" y1="49" x2="183" y2="148"
+        stroke="#0A1628" stroke-width="9.5" stroke-linecap="round"/>
+  <circle cx="183" cy="158" r="11" fill="#0A1628"/>
+
+  <!-- ══ V  (heavy bold filled) ══ -->
+  <path d="M 212,22 L 241,22 L 280,152 L 319,22 L 348,22 L 280,169 Z"
+        fill="#0A1628"/>
+
+  <!-- ══ O  (circle + 4 cardinal nodes — matches Ai node style) ══ -->
+  <circle cx="420" cy="90"  r="63"
+          stroke="#0A1628" stroke-width="9.5" fill="none"/>
+  <circle cx="420" cy="27"  r="11" fill="#0A1628"/>
+  <circle cx="483" cy="90"  r="11" fill="#0A1628"/>
+  <circle cx="420" cy="153" r="11" fill="#0A1628"/>
+  <circle cx="357" cy="90"  r="11" fill="#0A1628"/>
+
+  <!-- ══ R  (heavy bold — even-odd compound path) ══ -->
+  <path fill-rule="evenodd" fill="#0A1628" d="
+    M 502,158 L 502,22 L 564,22
+    C 638,22 638,119 564,120
+    L 548,120 L 628,158 L 599,158 L 519,125 L 512,125 L 512,158 Z
+    M 512,44 C 512,44 574,44 574,71
+    C 574,98 512,98 512,98 Z
+  "/>
+</svg>
