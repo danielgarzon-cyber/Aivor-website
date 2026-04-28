@@ -1,5 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/aivor-website.html" }
-  ]
+    "rewrites": [
+          { "source": "/(.*)", "destination": "/D-Tech/aivor-website.html" }
+    ]
 }
