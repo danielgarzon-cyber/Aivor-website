@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de privacidad — Aivor</title>
+<meta name="description" content="Cómo Aivor recolecta, usa y protege los datos personales de sus clientes y usuarios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --navy: #0B1437;
+    --navy-alt: #131C45;
+    --blue: #1A52E5;
+    --white: #ffffff;
+    --cream: #F4F2EC;
+    --grey: #5A6478;
+    --light-grey: #E5E7EB;
+    --border: rgba(11, 20, 55, .12);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    line-height: 1.7;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ============ HEADER ============ */
+  header {
+    background: var(--navy);
+    padding: 1.5rem 0;
+    border-bottom: 4px solid var(--blue);
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+    display: inline-block;
+  }
+  .logo .ai { color: var(--white); }
+  .logo .vor { color: #6B8FFF; }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 4rem 0 2.5rem;
+  }
+  .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: 'DM Serif Display', 'Inter', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .updated {
+    font-size: 0.95rem;
+    color: var(--grey);
+  }
+
+  /* ============ CONTENT ============ */
+  main {
+    padding-bottom: 5rem;
+  }
+  section {
+    margin-bottom: 2.5rem;
+  }
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    margin-top: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  p {
+    margin-bottom: 1rem;
+    font-size: 1.02rem;
+    color: var(--navy);
+  }
+  ul {
+    margin: 0.5rem 0 1.25rem 1.5rem;
+  }
+  li {
+    margin-bottom: 0.5rem;
+    font-size: 1.02rem;
+  }
+  strong { font-weight: 600; }
+  a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: opacity .2s;
+  }
+  a:hover { opacity: 0.7; }
+
+  .callout {
+    background: var(--white);
+    border-left: 4px solid var(--blue);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(11, 20, 55, .06);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,.85);
+    padding: 3rem 0;
+    text-align: center;
+  }
+  footer .container {
+    font-size: 0.9rem;
+  }
+  footer a {
+    color: var(--white);
+    border-bottom-color: rgba(255,255,255,.4);
+  }
+  footer .tagline {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: rgba(255,255,255,.65);
+  }
+
+  /* Tabla de contenidos lateral en pantallas grandes (sticky) */
+  @media (min-width: 1100px) {
+    .layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .toc {
+      position: sticky;
+      top: 2rem;
+      align-self: start;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(11, 20, 55, .06);
+      font-size: 0.875rem;
+    }
+    .toc h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    .toc ol {
+      list-style: none;
+      padding: 0;
+      counter-reset: toc;
+    }
+    .toc li {
+      counter-increment: toc;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+    .toc li::before {
+      content: counter(toc) ". ";
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .toc a {
+      color: var(--navy);
+      border: none;
+    }
+    .toc a:hover { color: var(--blue); }
+    main .container { max-width: none; padding: 0; }
+  }
+  @media (max-width: 1099px) {
+    .toc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="/" class="logo"><span class="ai">Ai</span><span class="vor">vor</span></a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Tabla de contenidos lateral (solo desktop ≥1100px) -->
+  <aside class="toc">
+    <h4>En esta página</h4>
+    <ol>
+      <li><a href="#quienes">Quiénes somos</a></li>
+      <li><a href="#datos">Datos que recopilamos</a></li>
+      <li><a href="#uso">Cómo usamos los datos</a></li>
+      <li><a href="#terceros">Terceros y subprocesadores</a></li>
+      <li><a href="#almacenamiento">Almacenamiento y seguridad</a></li>
+      <li><a href="#derechos">Tus derechos</a></li>
+      <li><a href="#whatsapp">Uso de WhatsApp</a></li>
+      <li><a href="#cookies">Cookies</a></li>
+      <li><a href="#cambios">Cambios a esta política</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ol>
+  </aside>
+
+  <main>
+    <div class="container">
+
+      <section class="hero">
+        <div class="eyebrow">Aivor</div>
+        <h1>Política de privacidad</h1>
+        <p class="updated">Última actualización: 13 de mayo de 2026</p>
+      </section>
+
+      <section id="quienes">
+        <h2>1. Quiénes somos</h2>
+        <p>
+          Aivor SAS es una empresa de consultoría tecnológica con sede en Colombia, enfocada en
+          acompañar a empresas en la adopción honesta y crítica de tecnología: infraestructura
+          en la nube (IaaS), software como servicio (SaaS), CRM, ciberseguridad y aplicación de
+          inteligencia artificial. Operamos bajo el dominio <a href="https://www.aivor.org">www.aivor.org</a>
+          y nos comunicamos con clientes a través de correo electrónico, formularios web,
+          WhatsApp Business y videollamada.
+        </p>
+        <p>
+          Esta política describe qué datos personales recolectamos, con qué propósito, con
+          quién los compartimos, durante cuánto tiempo los conservamos y qué derechos tienes
+          sobre ellos. Aplica tanto al sitio web como a nuestras herramientas conectadas a la
+          API de WhatsApp Business de Meta.
+        </p>
+      </section>
+
+      <section id="datos">
+        <h2>2. Datos que recopilamos</h2>
+
+        <h3>2.1 Datos que tú nos proporcionas directamente</h3>
+        <ul>
+          <li>Nombre, cargo y empresa cuando completas un formulario en el sitio o nos escribes por correo.</li>
+          <li>Correo electrónico y número de teléfono cuando solicitas un diagnóstico, propuesta comercial o demostración.</li>
+          <li>Información sobre tu empresa, sector, retos tecnológicos y necesidades que compartes durante reuniones, llamadas o conversaciones de WhatsApp con nuestro equipo.</li>
+          <li>Mensajes que envías a través de nuestros canales de WhatsApp conectados a la API de Meta.</li>
+        </ul>
+
+        <h3>2.2 Datos recolectados automáticamente</h3>
+        <ul>
+          <li>Dirección IP, tipo de navegador, sistema operativo y páginas visitadas dentro de www.aivor.org.</li>
+          <li>Identificadores anónimos de visitante para fines analíticos (Plausible o herramienta equivalente respetuosa de la privacidad).</li>
+          <li>En el caso de WhatsApp: número de origen, hora del mensaje y metadatos provistos por Meta a través de la API.</li>
+        </ul>
+      </section>
+
+      <section id="uso">
+        <h2>3. Cómo usamos los datos</h2>
+        <p>Utilizamos la información para los siguientes propósitos legítimos:</p>
+        <ul>
+          <li>Responder a tus consultas comerciales y técnicas.</li>
+          <li>Preparar diagnósticos, propuestas y entregables ajustados a tu contexto.</li>
+          <li>Conversar contigo a través de WhatsApp cuando inicias la conversación o nos das tu consentimiento.</li>
+          <li>Operar el CRM interno donde registramos contexto histórico de cada cliente para no preguntarte dos veces lo mismo.</li>
+          <li>Mejorar nuestras herramientas internas de productividad y de atención al cliente.</li>
+          <li>Cumplir obligaciones legales, contables y contractuales.</li>
+        </ul>
+        <div class="callout">
+          <p>
+            <strong>Nunca</strong> vendemos tus datos personales a terceros, ni los usamos para
+            publicidad dirigida fuera de la relación comercial que nos vincula. Aivor no
+            ejecuta campañas de remarketing externas con los datos de sus clientes.
+          </p>
+        </div>
+      </section>
+
+      <section id="terceros">
+        <h2>4. Terceros y subprocesadores</h2>
+        <p>
+          Para operar nuestros servicios usamos proveedores tecnológicos que pueden procesar
+          datos personales bajo sus propias políticas de privacidad y acuerdos de tratamiento de datos:
+        </p>
+        <ul>
+          <li><strong>Meta Platforms (WhatsApp Business Cloud API)</strong> — para enviar y recibir mensajes de WhatsApp con tu consentimiento. <a href="https://www.whatsapp.com/legal/privacy-policy">Política de WhatsApp</a>.</li>
+          <li><strong>Anthropic (Claude API)</strong> — para procesar lenguaje natural y generar respuestas asistidas por inteligencia artificial. Anthropic no usa contenido de cliente para entrenar modelos. <a href="https://www.anthropic.com/legal/privacy">Política de Anthropic</a>.</li>
+          <li><strong>Google Workspace</strong> — para correo electrónico, documentos y videollamadas.</li>
+          <li><strong>Plausible Analytics o equivalente</strong> — para analítica web sin cookies de seguimiento.</li>
+          <li><strong>Calendly</strong> — para programar reuniones cuando tú así lo eliges.</li>
+        </ul>
+        <p>
+          Compartimos información con estos proveedores solo en la medida estrictamente
+          necesaria para prestar el servicio. No los autorizamos a usar tus datos para sus
+          propios fines comerciales.
+        </p>
+      </section>
+
+      <section id="almacenamiento">
+        <h2>5. Almacenamiento y seguridad</h2>
+        <p>
+          Los datos se almacenan en servidores cifrados ubicados en infraestructura de
+          proveedores reconocidos (Google Cloud, Cloudflare, Anthropic). Aplicamos cifrado
+          en tránsito (TLS 1.2 o superior) y en reposo. El acceso a la información personal
+          está restringido al equipo de Aivor que necesita conocerla para cumplir su rol, y
+          se audita.
+        </p>
+        <p>
+          Conservamos los datos durante el tiempo necesario para cumplir los fines descritos:
+          mientras dure la relación comercial y por hasta cinco años adicionales para cumplir
+          obligaciones legales y contables aplicables en Colombia.
+        </p>
+      </section>
+
+      <section id="derechos">
+        <h2>6. Tus derechos</h2>
+        <p>
+          De acuerdo con la Ley 1581 de 2012 de Colombia y normas equivalentes en otras
+          jurisdicciones, tienes los siguientes derechos sobre tus datos personales:
+        </p>
+        <ul>
+          <li><strong>Acceso:</strong> saber qué datos tuyos tratamos y con qué propósito.</li>
+          <li><strong>Rectificación:</strong> corregir datos inexactos o desactualizados.</li>
+          <li><strong>Supresión:</strong> solicitar la eliminación de tus datos cuando no sean necesarios para cumplir obligaciones legales o contractuales pendientes.</li>
+          <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos para fines distintos a los aceptados.</li>
+          <li><strong>Revocatoria del consentimiento:</strong> retirar tu consentimiento en cualquier momento sin afectar la legalidad del tratamiento previo.</li>
+          <li><strong>Portabilidad:</strong> recibir una copia estructurada de tus datos.</li>
+        </ul>
+        <p>
+          Para ejercer cualquiera de estos derechos, escríbenos a
+          <a href="mailto:gerencia@aivor.org">gerencia@aivor.org</a>. Respondemos dentro de
+          los quince (15) días hábiles siguientes a tu solicitud.
+        </p>
+      </section>
+
+      <section id="whatsapp">
+        <h2>7. Uso específico de WhatsApp Business</h2>
+        <p>
+          Aivor opera asistentes conversacionales conectados a la API de WhatsApp Business
+          de Meta, tanto para uso propio como para clientes empresariales que contratan
+          nuestros servicios. Cuando tú o un cliente de un cliente nuestro inicia conversación
+          con uno de estos números:
+        </p>
+        <ul>
+          <li>El contenido del mensaje, número de origen, marca de tiempo y metadatos provistos por Meta se transmiten al sistema de Aivor o al sistema del cliente final, según corresponda.</li>
+          <li>Esa información se procesa para generar una respuesta automática asistida por inteligencia artificial y se registra en el CRM del cliente final.</li>
+          <li>El operador humano (Aivor o cliente final) puede leer la conversación y tomar control en cualquier momento.</li>
+          <li>Puedes pedir en cualquier momento que se interrumpa el procesamiento de tus mensajes escribiendo "Dar de baja" o "Stop". Tu solicitud quedará registrada y se respetará.</li>
+        </ul>
+        <p>
+          En proyectos donde Aivor implementa la integración para un tercero (por ejemplo,
+          una empresa de logística que usa WhatsApp para recibir solicitudes de servicio),
+          el responsable del tratamiento de los datos de los usuarios finales es ese tercero,
+          y Aivor actúa como encargado bajo un contrato de tratamiento de datos.
+        </p>
+      </section>
+
+      <section id="cookies">
+        <h2>8. Cookies</h2>
+        <p>
+          El sitio www.aivor.org puede usar cookies técnicas estrictamente necesarias para
+          el funcionamiento (sesión, preferencias de idioma) y, opcionalmente, cookies
+          analíticas anonimizadas. No utilizamos cookies de publicidad ni rastreadores de
+          terceros con fines de remarketing.
+        </p>
+      </section>
+
+      <section id="cambios">
+        <h2>9. Cambios a esta política</h2>
+        <p>
+          Podemos actualizar esta política de privacidad para reflejar cambios en nuestras
+          prácticas o en la regulación aplicable. La fecha de la última actualización
+          aparece arriba. Cuando los cambios sean significativos, te lo notificaremos por
+          correo o WhatsApp si nos has dado tus datos de contacto.
+        </p>
+      </section>
+
+      <section id="contacto">
+        <h2>10. Contacto</h2>
+        <p>
+          Si tienes preguntas sobre esta política o sobre cómo tratamos tus datos
+          personales, escríbenos a:
+        </p>
+        <div class="callout">
+          <p>
+            <strong>Aivor SAS</strong><br>
+            Correo: <a href="mailto:gerencia@aivor.org">gerencia@aivor.org</a><br>
+            WhatsApp: <a href="https://wa.me/573102776800">+57 310 277 6800</a><br>
+            Sitio web: <a href="https://www.aivor.org">www.aivor.org</a>
+          </p>
+        </div>
+        <p>
+          Si consideras que no hemos atendido adecuadamente tu solicitud, tienes derecho a
+          presentar queja ante la Superintendencia de Industria y Comercio de Colombia
+          (SIC), autoridad de control en materia de protección de datos personales.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Aivor SAS · Todos los derechos reservados.</p>
+    <p class="tagline">Tecnología honesta para empresas reales.</p>
+  </div>
+</footer>
+
+</body>
+</html>
