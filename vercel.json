@@ -1,5 +1,6 @@
 {
-      "rewrites": [
-              { "source": "/((?!api/).*)", "destination": "/D-Tech/aivor-website.html" }
-      ]
+        "rewrites": [
+                  { "source": "/privacidad", "destination": "/D-Tech/privacidad.html" },
+                  { "source": "/((?!api/|privacidad).*)", "destination": "/D-Tech/aivor-website.html" }
+        ]
 }
