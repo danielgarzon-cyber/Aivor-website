@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aivor — Tecnología honesta para empresas reales</title>
+<meta name="description" content="Aivor acompaña a las empresas en ciberseguridad, CRM, SaaS e IA. Vendemos resultados, no horas." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --blue:#1A52E5;--bg:#0B1437;--bg-2:#0d1a45;--head:#ffffff;--text:#e7eaf5;
+    --muted:#8a93b8;--line:rgba(255,255,255,.14);--card:rgba(255,255,255,.03);
+    --veil:radial-gradient(120% 90% at 50% 0%, rgba(11,20,55,.05) 0%, rgba(11,20,55,.5) 55%, rgba(11,20,55,.9) 100%);
+  }
+  body.light{
+    --bg:#eef0f8;--bg-2:#e3e7f6;--head:#0B1437;--text:#283357;--muted:#5d6790;
+    --line:rgba(11,20,55,.16);--card:rgba(11,20,55,.03);
+    --veil:radial-gradient(120% 90% at 50% 0%, rgba(238,240,248,0) 0%, rgba(238,240,248,.5) 55%, rgba(238,240,248,.92) 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .6s ease,color .6s ease}
+  a{color:inherit;text-decoration:none}
+
+  .progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--blue);z-index:60;transition:width .1s linear}
+  .cursor{position:fixed;top:0;left:0;width:9px;height:9px;border:1px solid var(--blue);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .25s ease,height .25s ease,background .25s ease}
+  .cursor.big{width:52px;height:52px;background:rgba(26,82,229,.10)}
+  @media (hover:none){.cursor{display:none}}
+
+  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+  .bg-veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--veil);transition:background .6s ease}
+
+  header{position:fixed;top:0;left:0;width:100%;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:clamp(16px,2.3vw,30px) clamp(20px,5vw,64px)}
+  .wordmark{font-weight:700;font-size:clamp(20px,1.7vw,26px);letter-spacing:-.02em}
+  .wordmark .ai{color:var(--head)} .wordmark .vor{color:var(--blue)}
+  .nav-right{display:flex;align-items:center;gap:clamp(14px,1.8vw,30px)}
+  nav.top{display:flex;gap:clamp(14px,1.8vw,30px);font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  nav.top a{color:var(--text);opacity:.82;position:relative;padding-bottom:4px}
+  nav.top a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  nav.top a:hover{opacity:1} nav.top a:hover::after{transform:scaleX(1)}
+  @media(max-width:720px){nav.top{display:none}}
+  .theme-toggle{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);cursor:pointer;background:transparent}
+  .theme-toggle .dot{width:9px;height:9px;border-radius:50%;background:var(--blue)}
+
+  main{position:relative;z-index:10}
+  section{position:relative;width:100%}
+  .wrap{width:min(1180px,88vw);margin:0 auto}
+
+  /* hero */
+  .hero{height:100vh;min-height:600px;display:flex;align-items:flex-end}
+  .hero .wrap{padding-bottom:clamp(46px,7vw,96px)}
+  .eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(18px,3vw,32px)}
+  .hero h1{font-weight:500;font-style:italic;font-size:clamp(38px,8vw,116px);line-height:1.02;letter-spacing:-.02em;color:var(--head);max-width:14ch}
+  .hero h1 .accent{color:var(--blue);font-style:italic}
+  .hero .sub{margin-top:clamp(20px,3vw,38px);max-width:46ch;font-size:clamp(14px,1.15vw,17px);line-height:1.85;color:var(--text)}
+  .scroll-hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);z-index:11}
+  .scroll-hint .bar{width:1px;height:32px;background:linear-gradient(var(--blue),transparent);animation:drop 2.2s linear infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.01%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  @media (max-height:720px),(max-width:560px){.scroll-hint{display:none}}
+
+  /* flicker */
+  .flicker .word{display:inline-block;white-space:nowrap}
+  .flicker .char{opacity:0;display:inline-block}
+  .flicker.in .char{animation:flick .42s steps(1,end) both}
+  @keyframes flick{0%{opacity:0}12%{opacity:.55}24%{opacity:.15}38%{opacity:.8}50%{opacity:.25}70%{opacity:.9}100%{opacity:1}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .stagger > *{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  .stagger.in > *{opacity:1;transform:none}
+
+  /* ===== language swap: español por defecto, inglés al hover (sin doble texto) ===== */
+  .t{display:grid}
+  .t-inline{display:inline-grid;vertical-align:top}
+  .t > .es,.t > .en,.t-inline > .es,.t-inline > .en{grid-area:1/1;transition:opacity .35s ease}
+  .t > .es,.t-inline > .es{opacity:1;pointer-events:auto}
+  .t > .en,.t-inline > .en{opacity:0;pointer-events:none}
+  .t:hover > .es,.t-inline:hover > .es,.t.show-en > .es,.t-inline.show-en > .es{opacity:0;pointer-events:none}
+  .t:hover > .en,.t-inline:hover > .en,.t.show-en > .en,.t-inline.show-en > .en{opacity:1;pointer-events:auto}
+  /* tiny EN hint on hover-capable devices */
+  @media (hover:hover){
+    .lang-hint{position:fixed;right:clamp(16px,2vw,28px);bottom:84px;z-index:55;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);opacity:.7;pointer-events:none}
+  }
+  @media (hover:none){.lang-hint{display:none}}
+
+  /* section heading */
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:clamp(34px,5vw,60px)}
+  .sec-head .num{font-size:13px;color:var(--blue);font-weight:600;letter-spacing:.1em}
+  .sec-head h2{font-weight:600;font-size:clamp(26px,3.4vw,46px);letter-spacing:-.02em;color:var(--head)}
+
+  /* pillars / cubes */
+  .pillars{padding:clamp(120px,18vw,220px) 0 clamp(40px,6vw,90px)}
+  .cube-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,60px)}
+  @media(max-width:760px){.cube-grid{grid-template-columns:1fr}}
+  .cube-card{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .cube-stage{width:clamp(150px,18vw,228px);height:clamp(150px,18vw,228px)}
+  .cube-stage canvas{width:100%!important;height:100%!important;display:block}
+  .cube-card .label{margin-top:16px;font-weight:600;font-size:clamp(18px,1.7vw,24px);color:var(--head);letter-spacing:-.01em}
+  .cube-card .desc{margin-top:11px;max-width:32ch;font-size:13.5px;line-height:1.7;color:var(--text);opacity:.85}
+  .cube-data{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:30ch;margin-top:0;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s ease,opacity .45s ease,margin-top .5s ease}
+  .cube-card:hover .cube-data{max-height:120px;opacity:1;margin-top:14px}
+  .cube-data span{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);border:1px solid var(--line);border-radius:999px;padding:5px 10px;white-space:nowrap}
+
+  /* process */
+  .process{padding:clamp(90px,13vw,190px) 0}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.5vw,36px)}
+  @media(max-width:860px){.steps{grid-template-columns:repeat(2,1fr);gap:34px 24px}}
+  @media(max-width:480px){.steps{grid-template-columns:1fr}}
+  .step{border-top:1px solid var(--line);padding-top:20px}
+  .step .n{font-size:clamp(34px,4vw,56px);font-weight:600;color:var(--blue);letter-spacing:-.04em;line-height:1}
+  .step h3{margin-top:16px;font-size:clamp(16px,1.4vw,20px);color:var(--head);font-weight:600}
+  .step p{margin-top:12px;font-size:13.5px;line-height:1.7;color:var(--text);opacity:.85}
+
+  /* manifesto */
+  .manifesto{padding:clamp(80px,12vw,170px) 0}
+  .manifesto .big{font-style:italic;font-weight:400;font-size:clamp(26px,4.4vw,60px);line-height:1.16;letter-spacing:-.02em;color:var(--head);max-width:18ch}
+  .manifesto .big .accent{color:var(--blue)}
+  .manifesto .mtext{max-width:64ch;margin-top:clamp(40px,5vw,72px)}
+  .manifesto .mtext p{font-size:clamp(14px,1.05vw,16px);line-height:1.95}
+  .manifesto .mtext p + p{margin-top:18px}
+
+  /* contact */
+  .contact{padding:clamp(96px,14vw,190px) 0 clamp(110px,15vw,190px)}
+  .contact .cta{display:block;border:1px solid var(--line);border-radius:2px;padding:clamp(38px,6vw,78px) clamp(26px,5vw,62px);transition:border-color .4s ease,background .4s ease}
+  .contact .cta:hover{border-color:var(--blue);background:rgba(26,82,229,.06)}
+  .contact .cta .lead{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+  .contact .cta .mail{font-style:italic;font-weight:400;font-size:clamp(26px,5vw,66px);color:var(--head);letter-spacing:-.02em;display:flex;align-items:center;gap:.35em;flex-wrap:wrap}
+  .contact .cta .mail svg{width:.46em;height:.46em;flex:none}
+  .contact .meta{display:flex;flex-wrap:wrap;gap:18px 40px;margin-top:clamp(38px,5vw,60px);font-size:14px;color:var(--text)}
+  .contact .meta a span,.contact .meta div span{color:var(--muted);display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+
+  footer{position:relative;z-index:10;border-top:1px solid var(--line)}
+  footer .wrap{display:flex;align-items:center;justify-content:space-between;padding:28px 0;flex-wrap:wrap;gap:16px}
+  footer .copy{font-size:12px;color:var(--muted)}
+  footer .links{display:flex;gap:22px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  footer .links a:hover{color:var(--head)}
+
+  /* floating assistant */
+  .asst-launch{position:fixed;right:clamp(16px,2vw,28px);bottom:clamp(16px,2vw,28px);z-index:80;display:flex;align-items:center;gap:10px;background:var(--blue);color:#fff;border:none;cursor:pointer;border-radius:999px;padding:13px 18px;font:600 13px "Inter",sans-serif;letter-spacing:.02em;box-shadow:0 12px 34px rgba(26,82,229,.4);transition:transform .25s ease,opacity .25s ease}
+  .asst-launch:hover{transform:translateY(-2px)}
+  .asst-launch .av{width:9px;height:9px;border-radius:50%;background:#fff;animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 8px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+  @media (max-width:560px){.asst-launch span.t-lbl{display:none}}
+  .asst-panel{position:fixed;right:clamp(16px,2vw,28px);bottom:clamp(16px,2vw,28px);z-index:81;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 110px));background:var(--bg-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;opacity:0;transform:translateY(16px) scale(.98);pointer-events:none;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1);box-shadow:0 26px 64px rgba(0,0,0,.45)}
+  .asst-panel.open{opacity:1;transform:none;pointer-events:auto}
+  .asst-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line)}
+  .asst-head .who{display:flex;align-items:center;gap:10px}
+  .asst-head .ring{width:32px;height:32px;border-radius:50%;background:rgba(26,82,229,.18);display:grid;place-items:center;color:var(--blue);font-weight:700;font-size:12px}
+  .asst-head b{color:var(--head);font-size:14px;font-weight:600;display:block;line-height:1.2}
+  .asst-head small{color:var(--muted);font-size:11px;letter-spacing:.03em;display:flex;align-items:center;gap:6px}
+  .asst-head small::before{content:"";width:7px;height:7px;border-radius:50%;background:#3ad17a}
+  .asst-head .x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:22px;line-height:1}
+  .asst-head .x:hover{color:var(--head)}
+  .asst-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:86%;padding:11px 14px;border-radius:13px;font-size:13.5px;line-height:1.55}
+  .msg.bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);color:var(--text);border-bottom-left-radius:4px}
+  .msg.me{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+  .asst-quick{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 12px}
+  .asst-quick button{background:transparent;border:1px solid var(--line);color:var(--text);cursor:pointer;border-radius:999px;padding:8px 12px;font:500 12px "Inter",sans-serif}
+  .asst-quick button:hover{border-color:var(--blue);color:var(--blue)}
+  .asst-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+  .asst-foot input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--text);padding:11px 14px;font:400 13px "Inter",sans-serif;outline:none}
+  .asst-foot input:focus{border-color:var(--blue)}
+  .asst-foot .send{background:var(--blue);border:none;color:#fff;border-radius:50%;width:40px;height:40px;cursor:pointer;flex:none;font-size:17px}
+</style>
+</head>
+<body>
+
+  <div class="progress" id="progress"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-veil"></div>
+
+  <header>
+    <a class="wordmark" href="#top"><span class="ai">Ai</span><span class="vor">vor</span></a>
+    <div class="nav-right">
+      <nav class="top">
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#filosofia">Filosofía</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <button class="theme-toggle" id="theme" aria-label="Cambiar tema"><span class="dot"></span><span id="theme-label">Light</span></button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow flicker" data-flicker>Ai + adVisor · Colombia</p>
+        <h1 class="flicker" data-flicker>Tecnología honesta para empresas <span class="accent">reales</span>.</h1>
+        <p class="sub reveal t">
+          <span class="es">Acompañamos a tu empresa en ciberseguridad, CRM, soluciones SaaS e IA — sin venderte software inflado ni crearte dependencia. Vendemos resultados, no horas.</span>
+          <span class="en">We guide your company through cybersecurity, CRM, SaaS and AI — without selling you bloated software or creating dependency. We sell results, not hours.</span>
+        </p>
+      </div>
+      <div class="scroll-hint"><span>Scroll</span><span class="bar"></span></div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="pillars" id="servicios">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="num">01</span>
+          <h2><span class="t-inline"><span class="es">Qué hacemos</span><span class="en">What we do</span></span></h2>
+        </div>
+        <div class="cube-grid" id="cube-grid"></div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="process" id="proceso">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="num">02</span>
+          <h2><span class="t-inline"><span class="es">Cómo trabajamos</span><span class="en">How we work</span></span></h2>
+        </div>
+        <div class="steps stagger">
+          <div class="step"><div class="n">01</div>
+            <h3><span class="t-inline"><span class="es">Diagnóstico</span><span class="en">Discovery</span></span></h3>
+            <p class="t"><span class="es">Escuchamos tu operación y tus dolores reales. Sin venderte nada todavía.</span><span class="en">We listen to your operation and your real pains — no selling yet.</span></p></div>
+          <div class="step"><div class="n">02</div>
+            <h3><span class="t-inline"><span class="es">Propuesta</span><span class="en">Proposal</span></span></h3>
+            <p class="t"><span class="es">Un plan claro, con alcance y costo honesto. Tú decides qué construir.</span><span class="en">A clear plan, with honest scope and cost. You decide what to build.</span></p></div>
+          <div class="step"><div class="n">03</div>
+            <h3><span class="t-inline"><span class="es">Construcción</span><span class="en">Build</span></span></h3>
+            <p class="t"><span class="es">Backend primero, seguridad de base. Construimos con IA, no con humo.</span><span class="en">Backend first, security by default. We build with AI, not hot air.</span></p></div>
+          <div class="step"><div class="n">04</div>
+            <h3><span class="t-inline"><span class="es">Entrega</span><span class="en">Handover</span></span></h3>
+            <p class="t"><span class="es">El software queda tuyo. Sin lock-in, con acompañamiento y capacitación.</span><span class="en">The software stays yours. No lock-in, with support and training.</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILOSOFÍA -->
+    <section class="manifesto" id="filosofia">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="num">03</span>
+          <h2><span class="t-inline"><span class="es">Filosofía</span><span class="en">Philosophy</span></span></h2>
+        </div>
+        <p class="big reveal t">
+          <span class="es">No vendemos software <span class="accent">ultra-modificado</span>. Resolvemos el problema real.</span>
+          <span class="en">We don't sell <span class="accent">over-customized</span> software. We solve the real problem.</span>
+        </p>
+        <div class="mtext reveal">
+          <p class="t"><span class="es">Aivor nace de <strong>Ai + adVisor</strong>. Somos el "vecino" técnico de tu empresa: cerca, claro y sin letra pequeña.</span><span class="en">Aivor comes from <strong>Ai + adVisor</strong>. We're your company's technical "neighbor": close, clear, and with no fine print.</span></p>
+          <p class="t"><span class="es">Te acompañamos en el uso y manejo de la tecnología —desde IaaS y ciberseguridad hasta CRM, SaaS e IA aplicada— para que no caigas en las promesas infladas de los grandes proveedores.</span><span class="en">We guide you through technology —from IaaS and cybersecurity to CRM, SaaS and applied AI— so you don't fall for the inflated promises of big vendors.</span></p>
+          <p class="t"><span class="es">Cuando construimos software, lo construimos con IA y te lo entregamos a ti. Sin lock-in. Sin dependencia.</span><span class="en">When we build software, we build it with AI and hand it over to you. No lock-in. No dependency.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="num">04</span>
+          <h2><span class="t-inline"><span class="es">Contacto</span><span class="en">Get in touch</span></span></h2>
+        </div>
+        <a class="cta reveal" href="mailto:gerencia@aivor.org">
+          <div class="lead"><span class="t-inline"><span class="es">Cuéntanos tu reto</span><span class="en">Tell us your challenge</span></span></div>
+          <div class="mail">gerencia@aivor.org
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1A52E5" stroke-width="2.2"><path d="M5 19 19 5M9 5h10v10"/></svg>
+          </div>
+        </a>
+        <div class="meta reveal">
+          <a href="https://wa.me/573102309299"><span>WhatsApp / Comercial</span>+57 310 230 9299</a>
+          <a href="https://www.aivor.org"><span>Web</span>www.aivor.org</a>
+          <div><span class="t-inline"><span class="es">Ubicación</span><span class="en">Based in</span></span>Bogotá · Medellín, Colombia</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="copy">© 2026 Aivor — Ai + adVisor</div>
+      <div class="links">
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#filosofia">Filosofía</a>
+        <a href="mailto:gerencia@aivor.org">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- hint: hover para inglés -->
+  <div class="lang-hint">Hover → English</div>
+
+  <!-- Agente de asistencia flotante -->
+  <button class="asst-launch" id="asst-launch" aria-label="Abrir asistente Aivor">
+    <span class="av"></span><span class="t-lbl">Asistente Aivor</span>
+  </button>
+  <div class="asst-panel" id="asst-panel" role="dialog" aria-label="Asistente Aivor">
+    <div class="asst-head">
+      <div class="who"><div class="ring">Ai</div><div><b>Asistente Aivor</b><small>En línea</small></div></div>
+      <button class="x" id="asst-close" aria-label="Cerrar asistente">&times;</button>
+    </div>
+    <div class="asst-body" id="asst-body"></div>
+    <div class="asst-quick" id="asst-quick"></div>
+    <div class="asst-foot">
+      <input id="asst-input" type="text" autocomplete="off" placeholder="Escribe tu mensaje…" />
+      <button class="send" id="asst-send" aria-label="Enviar">&rarr;</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+  /* ===== AIVOR — landing original (código propio) =====
+     Partículas con morph al scroll · texto flicker · reveal ·
+     cubos 3D con datos · cursor · tema claro/oscuro ·
+     swap de idioma (ES por defecto, EN al hover/tap) · agente flotante */
+  const BLUE='#1A52E5';
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch=window.matchMedia('(hover:none)').matches;
+
+  /* progress bar */
+  const progressEl=document.getElementById('progress');
+  function updateProgress(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;progressEl.style.width=(max>0?(scrollY/max*100):0)+'%';}
+
+  /* custom cursor */
+  (function cursor(){
+    const c=document.getElementById('cursor');let x=innerWidth/2,y=innerHeight/2,tx=x,ty=y;
+    addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});
+    const grow=()=>c.classList.add('big'),shrink=()=>c.classList.remove('big');
+    document.querySelectorAll('a,button,.cube-card,.cta,.t,.t-inline').forEach(el=>{el.addEventListener('mouseenter',grow);el.addEventListener('mouseleave',shrink);});
+    (function follow(){x=lerp(x,tx,.2);y=lerp(y,ty,.2);c.style.left=x+'px';c.style.top=y+'px';requestAnimationFrame(follow);})();
+  })();
+
+  /* language swap — tap toggles on touch devices */
+  if(isTouch){
+    document.body.addEventListener('click',e=>{
+      if(e.target.closest('a,button,input'))return;
+      const t=e.target.closest('.t,.t-inline');
+      if(t)t.classList.toggle('show-en');
+    });
+  }
+
+  /* theme toggle */
+  let LIGHT=false;const onTheme=[];
+  document.getElementById('theme').addEventListener('click',()=>{
+    LIGHT=!LIGHT;document.body.classList.toggle('light',LIGHT);
+    document.getElementById('theme-label').textContent=LIGHT?'Dark':'Light';
+    onTheme.forEach(fn=>fn(LIGHT));
+  });
+
+  /* flicker (palabras enteras; solo parte entre palabras) */
+  function buildFlicker(el,tokens){
+    el.innerHTML='';let word=null;
+    tokens.forEach(tk=>{
+      if(tk.ch===' '){word=null;el.appendChild(document.createTextNode(' '));return;}
+      if(!word){word=document.createElement('span');word.className='word';el.appendChild(word);}
+      const s=document.createElement('span');s.className='char';s.textContent=tk.ch;
+      if(tk.accent)s.style.color=BLUE;s.style.animationDelay=(Math.random()*420|0)+'ms';word.appendChild(s);
+    });
+  }
+  document.querySelectorAll('[data-flicker]').forEach(el=>{
+    const accent=el.querySelector('.accent');const tokens=[];
+    if(accent){
+      const accentText=accent.textContent;
+      const parts=el.innerHTML.split(/<span class="accent">.*?<\/span>/);
+      const pre=(parts[0]||'').replace(/<[^>]+>/g,''),suf=(parts[1]||'').replace(/<[^>]+>/g,'');
+      [...pre].forEach(ch=>tokens.push({ch,accent:false}));
+      [...accentText].forEach(ch=>tokens.push({ch,accent:true}));
+      [...suf].forEach(ch=>tokens.push({ch,accent:false}));
+    }else{[...el.textContent].forEach(ch=>tokens.push({ch,accent:false}));}
+    buildFlicker(el,tokens);
+  });
+
+  /* reveal + stagger + count-up */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      e.target.classList.add('in');
+      if(reduceMotion&&e.target.classList.contains('flicker'))e.target.querySelectorAll('.char').forEach(s=>s.style.opacity=1);
+      if(e.target.classList.contains('stagger'))[...e.target.children].forEach((ch,i)=>ch.style.transitionDelay=(i*90)+'ms');
+      io.unobserve(e.target);
+    });
+  },{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal,.stagger,[data-flicker]').forEach(el=>io.observe(el));
+
+  /* EFFECT 1 — partículas con morph al scroll (atractor → esfera) */
+  (function particleBackground(){
+    if(typeof THREE==='undefined')return;
+    const canvas=document.getElementById('bg-canvas');
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,4000);camera.position.z=760;
+    const COUNT=innerWidth<760?9000:17000;
+    const posA=new Float32Array(COUNT*3),posB=new Float32Array(COUNT*3),cur=new Float32Array(COUNT*3);
+    let x=.1,y=0,z=0;const a=-1.34,b=-2.56,c=-2.53,d=1.81,e=3.54,f=.31;
+    for(let i=0;i<COUNT;i++){
+      const nx=Math.sin(a*y)-Math.cos(b*x),ny=Math.sin(c*x)-Math.cos(d*y),nz=Math.sin(e*x)-Math.cos(f*z);
+      x=nx;y=ny;z=nz;posA[i*3]=x*150;posA[i*3+1]=y*150;posA[i*3+2]=z*150;
+      const u=Math.random()*2-1,th=Math.random()*Math.PI*2,r=240,s=Math.sqrt(1-u*u);
+      posB[i*3]=Math.cos(th)*s*r;posB[i*3+1]=u*r;posB[i*3+2]=Math.sin(th)*s*r;
+      cur[i*3]=posA[i*3];cur[i*3+1]=posA[i*3+1];cur[i*3+2]=posA[i*3+2];
+    }
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(cur,3));
+    const colors=new Float32Array(COUNT*3);
+    function setColors(light){const main=new THREE.Color(light?'#26335c':'#cdd3ec'),acc=new THREE.Color(BLUE);
+      for(let i=0;i<COUNT;i++){const col=Math.random()<.16?acc:main;colors[i*3]=col.r;colors[i*3+1]=col.g;colors[i*3+2]=col.b;}
+      geo.setAttribute('color',new THREE.BufferAttribute(colors,3));geo.attributes.color.needsUpdate=true;}
+    setColors(false);
+    const mat=new THREE.PointsMaterial({size:1.7,vertexColors:true,transparent:true,opacity:.85,depthWrite:false,blending:THREE.AdditiveBlending});
+    const points=new THREE.Points(geo,mat);scene.add(points);
+    onTheme.push(light=>{setColors(light);mat.blending=light?THREE.NormalBlending:THREE.AdditiveBlending;mat.opacity=light?.6:.85;mat.needsUpdate=true;});
+    let mx=0,my=0,tmx=0,tmy=0,sY=0,p=0,lastP=-1;
+    addEventListener('mousemove',ev=>{tmx=ev.clientX/innerWidth-.5;tmy=ev.clientY/innerHeight-.5;});
+    addEventListener('scroll',()=>{sY=scrollY;updateProgress();},{passive:true});
+    addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
+    (function tick(){
+      const target=clamp(sY/Math.max(1,innerHeight*0.9),0,1);p=lerp(p,target,.06);
+      if(Math.abs(p-lastP)>0.0005){const ep=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        for(let i=0;i<COUNT*3;i++)cur[i]=posA[i]+(posB[i]-posA[i])*ep;geo.attributes.position.needsUpdate=true;lastP=p;}
+      mx=lerp(mx,tmx,.05);my=lerp(my,tmy,.05);
+      if(!reduceMotion){points.rotation.y+=0.0009;points.rotation.x+=0.0004;}
+      points.rotation.y+=mx*0.02;points.rotation.x+=my*0.02;
+      camera.position.y=-sY*0.04;camera.lookAt(0,camera.position.y*0.4,0);
+      renderer.render(scene,camera);requestAnimationFrame(tick);
+    })();
+  })();
+
+  /* EFFECT 4 — cubos 3D con DATOS + swap de idioma en label/desc */
+  const PILLARS=[
+    {label:'Ciberseguridad',en:'Cybersecurity',
+     desc:'Protección, auditoría y buenas prácticas para que una sola brecha no te cueste el negocio.',
+     descEn:'Protection, audits and best practices so a single breach doesn\'t cost you the business.',
+     faces:['SEGURIDAD','OWASP\nTop 10','MFA / 2FA','Auditoría','Cifrado\nAES-256','0\nbrechas'],
+     chips:['OWASP Top 10','MFA / 2FA','Backups','Pentest']},
+    {label:'CRM & SaaS',en:'CRM & SaaS',
+     desc:'Implementamos y ordenamos tus herramientas — sin dependencia y con tus datos siempre tuyos.',
+     descEn:'We implement and tidy your tools — no lock-in, your data always yours.',
+     faces:['CRM','SaaS','Pipeline\n6 etapas','Automati-\nzación','Sin\nlock-in','Datos\ntuyos'],
+     chips:['Pipeline','Automatización','Sin lock-in','Integraciones']},
+    {label:'IA aplicada',en:'Applied AI',
+     desc:'Agentes y automatización con IA dentro de tu empresa, con aviso claro y control de costos.',
+     descEn:'AI agents and automation inside your company, with clear notice and cost control.',
+     faces:['IA','Agentes','RAG','Prompts\nv1','Control\nde costo','+ valor'],
+     chips:['Agentes','RAG','Control de costo','Evals']},
+    {label:'Software a medida',en:'Custom software',
+     desc:'Construimos con IA software propio y escalable — y te lo entregamos a ti, no al revés.',
+     descEn:'We build custom, scalable software with AI — and hand it to you, not the other way around.',
+     faces:['SOFTWARE','Código\npropio','Escalable','Backend\nfirst','Honesto','2026'],
+     chips:['Código propio','Escalable','Backend first','Tuyo']}
+  ];
+
+  function faceTexture(text,accent){
+    const S=512,cv=document.createElement('canvas');cv.width=cv.height=S;const g=cv.getContext('2d');
+    g.fillStyle='#0B1437';g.fillRect(0,0,S,S);
+    g.strokeStyle='rgba(255,255,255,0.10)';g.lineWidth=6;g.strokeRect(20,20,S-40,S-40);
+    g.strokeStyle=BLUE;g.lineWidth=8;g.beginPath();g.moveTo(40,68);g.lineTo(40,40);g.lineTo(68,40);g.stroke();
+    g.fillStyle=accent?BLUE:'#ffffff';g.textAlign='center';g.textBaseline='middle';
+    const lines=String(text).split('\n');const big=lines.length===1&&text.length<=4;
+    const size=big?150:(lines.length>1?78:92);g.font=`700 ${size}px Inter, sans-serif`;
+    const lh=size*1.08,startY=S/2-(lines.length-1)*lh/2;
+    lines.forEach((ln,i)=>g.fillText(ln,S/2,startY+i*lh));
+    const tex=new THREE.CanvasTexture(cv);tex.anisotropy=4;return tex;
+  }
+  function makeCube(stage,pillar){
+    if(typeof THREE==='undefined'){stage.style.background='rgba(255,255,255,.04)';return;}
+    const w=stage.clientWidth,h=stage.clientHeight;
+    const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(w,h);stage.appendChild(renderer.domElement);
+    const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(42,w/h,.1,100);camera.position.z=4.2;
+    const mats=pillar.faces.map((t,idx)=>new THREE.MeshBasicMaterial({map:faceTexture(t,idx%3===1)}));
+    const cube=new THREE.Mesh(new THREE.BoxGeometry(2,2,2),mats);
+    cube.rotation.x=Math.random()*Math.PI;cube.rotation.y=Math.random()*Math.PI;scene.add(cube);
+    let hover=false;stage.addEventListener('mouseenter',()=>hover=true);stage.addEventListener('mouseleave',()=>hover=false);
+    addEventListener('resize',()=>{const nw=stage.clientWidth,nh=stage.clientHeight;renderer.setSize(nw,nh);camera.aspect=nw/nh;camera.updateProjectionMatrix();});
+    (function loop(){const sp=hover?0.016:0.006;if(!reduceMotion){cube.rotation.y+=sp;cube.rotation.x+=sp*0.45;}renderer.render(scene,camera);requestAnimationFrame(loop);})();
+  }
+  (function buildCubes(){
+    const grid=document.getElementById('cube-grid');
+    PILLARS.forEach(p=>{
+      const card=document.createElement('div');card.className='cube-card reveal';
+      card.innerHTML=`<div class="cube-stage"></div>
+        <div class="label"><span class="t-inline"><span class="es">${p.label}</span><span class="en">${p.en}</span></span></div>
+        <div class="desc t"><span class="es">${p.desc}</span><span class="en">${p.descEn}</span></div>
+        <div class="cube-data">${p.chips.map(ch=>`<span>${ch}</span>`).join('')}</div>`;
+      grid.appendChild(card);io.observe(card);
+      makeCube(card.querySelector('.cube-stage'),p);
+      const cur=document.getElementById('cursor');
+      card.addEventListener('mouseenter',()=>cur.classList.add('big'));
+      card.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+      if(isTouch)card.querySelectorAll('.t,.t-inline').forEach(t=>t.addEventListener('click',ev=>{ev.stopPropagation();t.classList.toggle('show-en');}));
+    });
+  })();
+
+  /* Agente de asistencia flotante (listo para conectar el agente real en reply()) */
+  (function assistant(){
+    const launch=document.getElementById('asst-launch'),panel=document.getElementById('asst-panel');
+    const body=document.getElementById('asst-body'),quick=document.getElementById('asst-quick'),input=document.getElementById('asst-input');
+    if(!launch||!panel)return;
+    let greeted=false;
+    const MAIL='gerencia@aivor.org',WA='573102309299';
+    const linkMail=`<a href="mailto:${MAIL}" style="color:var(--blue)">${MAIL}</a>`;
+    const linkWA=`<a href="https://wa.me/${WA}" style="color:var(--blue)">+57 310 230 9299</a>`;
+    const bi=(es,en)=>`<span class="t"><span class="es">${es}</span><span class="en">${en}</span></span>`;
+    function add(role,html){const d=document.createElement('div');d.className='msg '+role;d.innerHTML=html;body.appendChild(d);body.scrollTop=body.scrollHeight;return d;}
+    function botSay(html,after){const tdv=add('bot','<span style="opacity:.5">…</span>');setTimeout(()=>{tdv.innerHTML=html;body.scrollTop=body.scrollHeight;if(after)after();},480);}
+    const QUICK=[
+      {q:'¿Qué hacen?',a:bi(`Acompañamos a tu empresa en <b>ciberseguridad, CRM, SaaS e IA</b>, y construimos software a medida que queda <b>tuyo</b>. Vendemos resultados, no horas.`,`We guide you through <b>cybersecurity, CRM, SaaS & AI</b>, and build custom software that stays <b>yours</b>. We sell results, not hours.`)},
+      {q:'Agendar diagnóstico',a:bi(`Con gusto. Escríbenos a ${linkMail} con tu reto y coordinamos una llamada de diagnóstico, sin compromiso.`,`Happy to. Email us at ${linkMail} with your challenge and we'll set up a no-obligation discovery call.`)},
+      {q:'WhatsApp',a:bi(`Hablemos por WhatsApp: ${linkWA}.`,`Let's talk on WhatsApp: ${linkWA}.`)}
+    ];
+    function renderQuick(){quick.innerHTML='';QUICK.forEach(it=>{const b=document.createElement('button');b.textContent=it.q;b.onclick=()=>{add('me',it.q);botSay(it.a);};quick.appendChild(b);});}
+    function reply(text){
+      const t=text.toLowerCase();
+      if(/whats|wasap|\bwa\b|tel[eé]|llam|call|phone|cel/.test(t))return QUICK[2].a;
+      if(/cita|agend|reun|diagn|meet|demo|schedul|llamada/.test(t))return QUICK[1].a;
+      if(/precio|costo|cu[aá]nt|cuesta|tarifa|price|cost|budget/.test(t))
+        return bi(`El costo depende del alcance. Cuéntanos tu reto en ${linkMail} y te damos una propuesta clara y honesta.`,`Pricing depends on scope. Tell us your challenge at ${linkMail} and we'll send a clear, honest proposal.`);
+      if(/segur|cyber|hack|owasp|cifr|brecha|riesgo/.test(t))return QUICK[0].a;
+      if(/hola|buen|hi|hello|hey|saludos/.test(t))
+        return bi(`¡Hola! ¿En qué te ayudo? Puedo contarte qué hacemos, agendar un diagnóstico o conectarte por WhatsApp.`,`Hi! I can tell you what we do, book a discovery call, or connect you on WhatsApp.`);
+      return bi(`Gracias por tu mensaje. Para darte la mejor respuesta, escríbenos a ${linkMail} o por WhatsApp ${linkWA}.`,`Thanks! For the best answer, reach us by email or WhatsApp ${linkWA}.`);
+    }
+    function submit(){const v=input.value.trim();if(!v)return;add('me',v.replace(/[<>]/g,''));input.value='';botSay(reply(v));}
+    function open(){panel.classList.add('open');launch.style.opacity=0;launch.style.pointerEvents='none';
+      if(!greeted){greeted=true;botSay(bi(`¡Hola! Soy el asistente de <b>Aivor</b>. ¿En qué te ayudo hoy?`,`Hi! I'm Aivor's assistant. How can I help today?`),renderQuick);}
+      setTimeout(()=>input.focus(),350);}
+    function close(){panel.classList.remove('open');launch.style.opacity=1;launch.style.pointerEvents='auto';}
+    launch.onclick=open;document.getElementById('asst-close').onclick=close;document.getElementById('asst-send').onclick=submit;
+    input.addEventListener('keydown',e=>{if(e.key==='Enter')submit();});
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))close();});
+  })();
+
+  updateProgress();
+  </script>
+</body>
+</html>
