@@ -184,7 +184,7 @@
         <a href="#filosofia">Filosofía</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <button class="theme-toggle" id="theme" aria-label="Cambiar tema"><span class="dot"></span><span id="theme-label">Light</span></button>
+      <button class="theme-toggle" id="theme" aria-label="Cambiar tema"><span class="dot"></span><span id="theme-label">Dark</span></button>
     </div>
   </header>
 
@@ -345,8 +345,9 @@
     });
   }
 
-  /* theme toggle */
-  let LIGHT=false;const onTheme=[];
+  /* theme toggle — la página arranca SIEMPRE en Light */
+  let LIGHT=true;const onTheme=[];
+  document.body.classList.add('light');
   document.getElementById('theme').addEventListener('click',()=>{
     LIGHT=!LIGHT;document.body.classList.toggle('light',LIGHT);
     document.getElementById('theme-label').textContent=LIGHT?'Dark':'Light';
@@ -397,13 +398,48 @@
     const scene=new THREE.Scene();
     const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,4000);camera.position.z=760;
     const COUNT=innerWidth<760?9000:17000;
-    const posA=new Float32Array(COUNT*3),posB=new Float32Array(COUNT*3),cur=new Float32Array(COUNT*3);
+    /* 4 formas a las que migran las partículas según el scroll:
+       posA = nube/atractor (inicio) · posB = ovalo · posC = caja 3D · posD = pirámide */
+    const posA=new Float32Array(COUNT*3),posB=new Float32Array(COUNT*3),
+          posC=new Float32Array(COUNT*3),posD=new Float32Array(COUNT*3),cur=new Float32Array(COUNT*3);
     let x=.1,y=0,z=0;const a=-1.34,b=-2.56,c=-2.53,d=1.81,e=3.54,f=.31;
+    const RX=205,RY=300,RZ=205;            // ovalo (elipsoide vertical)
+    const CUBE=200;                        // mitad del lado de la caja
+    const PB=235,PYTOP=300,PYBOT=-205;     // base media, ápice y base de la pirámide
+    /* punto aleatorio sobre la superficie de un cubo */
+    function cubePoint(arr,o,h){
+      const face=Math.floor(Math.random()*6);
+      const p=(Math.random()*2-1)*h,q=(Math.random()*2-1)*h;let X,Y,Z;
+      switch(face){
+        case 0:X=h;Y=p;Z=q;break;  case 1:X=-h;Y=p;Z=q;break;
+        case 2:X=p;Y=h;Z=q;break;  case 3:X=p;Y=-h;Z=q;break;
+        case 4:X=p;Y=q;Z=h;break;  default:X=p;Y=q;Z=-h;
+      }
+      arr[o]=X;arr[o+1]=Y;arr[o+2]=Z;
+    }
+    /* punto aleatorio sobre la superficie de una pirámide (base cuadrada + ápice) */
+    function pyramidPoint(arr,o,base,top,bot){
+      const apex=[0,top,0],
+            cn=[[-base,bot,-base],[base,bot,-base],[base,bot,base],[-base,bot,base]];
+      const r=Math.random()*5;let X,Y,Z;
+      if(r<1){X=(Math.random()*2-1)*base;Z=(Math.random()*2-1)*base;Y=bot;}
+      else{
+        const k=Math.floor(r-1),p1=cn[k],p2=cn[(k+1)%4];
+        let s=Math.random(),t=Math.random();if(s+t>1){s=1-s;t=1-t;}
+        const w0=1-s-t;
+        X=apex[0]*w0+p1[0]*s+p2[0]*t;
+        Y=apex[1]*w0+p1[1]*s+p2[1]*t;
+        Z=apex[2]*w0+p1[2]*s+p2[2]*t;
+      }
+      arr[o]=X;arr[o+1]=Y;arr[o+2]=Z;
+    }
     for(let i=0;i<COUNT;i++){
       const nx=Math.sin(a*y)-Math.cos(b*x),ny=Math.sin(c*x)-Math.cos(d*y),nz=Math.sin(e*x)-Math.cos(f*z);
       x=nx;y=ny;z=nz;posA[i*3]=x*150;posA[i*3+1]=y*150;posA[i*3+2]=z*150;
-      const u=Math.random()*2-1,th=Math.random()*Math.PI*2,r=240,s=Math.sqrt(1-u*u);
-      posB[i*3]=Math.cos(th)*s*r;posB[i*3+1]=u*r;posB[i*3+2]=Math.sin(th)*s*r;
+      const u=Math.random()*2-1,th=Math.random()*Math.PI*2,s=Math.sqrt(1-u*u);
+      posB[i*3]=Math.cos(th)*s*RX;posB[i*3+1]=u*RY;posB[i*3+2]=Math.sin(th)*s*RZ;
+      cubePoint(posC,i*3,CUBE);
+      pyramidPoint(posD,i*3,PB,PYTOP,PYBOT);
       cur[i*3]=posA[i*3];cur[i*3+1]=posA[i*3+1];cur[i*3+2]=posA[i*3+2];
     }
     const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(cur,3));
@@ -411,22 +447,32 @@
     function setColors(light){const main=new THREE.Color(light?'#26335c':'#cdd3ec'),acc=new THREE.Color(BLUE);
       for(let i=0;i<COUNT;i++){const col=Math.random()<.16?acc:main;colors[i*3]=col.r;colors[i*3+1]=col.g;colors[i*3+2]=col.b;}
       geo.setAttribute('color',new THREE.BufferAttribute(colors,3));geo.attributes.color.needsUpdate=true;}
-    setColors(false);
-    const mat=new THREE.PointsMaterial({size:1.7,vertexColors:true,transparent:true,opacity:.85,depthWrite:false,blending:THREE.AdditiveBlending});
+    setColors(true);
+    const mat=new THREE.PointsMaterial({size:1.7,vertexColors:true,transparent:true,opacity:.6,depthWrite:false,blending:THREE.NormalBlending});
     const points=new THREE.Points(geo,mat);scene.add(points);
     onTheme.push(light=>{setColors(light);mat.blending=light?THREE.NormalBlending:THREE.AdditiveBlending;mat.opacity=light?.6:.85;mat.needsUpdate=true;});
     let mx=0,my=0,tmx=0,tmy=0,sY=0,p=0,lastP=-1;
     addEventListener('mousemove',ev=>{tmx=ev.clientX/innerWidth-.5;tmy=ev.clientY/innerHeight-.5;});
     addEventListener('scroll',()=>{sY=scrollY;updateProgress();},{passive:true});
     addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
+    const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
     (function tick(){
-      const target=clamp(sY/Math.max(1,innerHeight*0.9),0,1);p=lerp(p,target,.06);
-      if(Math.abs(p-lastP)>0.0005){const ep=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
-        for(let i=0;i<COUNT*3;i++)cur[i]=posA[i]+(posB[i]-posA[i])*ep;geo.attributes.position.needsUpdate=true;lastP=p;}
+      /* progreso sobre TODO el documento -> 3 tramos: nube→ovalo→caja→pirámide */
+      const max=document.documentElement.scrollHeight-innerHeight;
+      const target=clamp(sY/Math.max(1,max),0,1);p=lerp(p,target,.06);
+      if(Math.abs(p-lastP)>0.0004){
+        const seg=p*3;let from,to,lt;
+        if(seg<1){from=posA;to=posB;lt=seg;}
+        else if(seg<2){from=posB;to=posC;lt=seg-1;}
+        else{from=posC;to=posD;lt=clamp(seg-2,0,1);}
+        const ep=ease(clamp(lt,0,1));
+        for(let i=0;i<COUNT*3;i++)cur[i]=from[i]+(to[i]-from[i])*ep;
+        geo.attributes.position.needsUpdate=true;lastP=p;
+      }
       mx=lerp(mx,tmx,.05);my=lerp(my,tmy,.05);
       if(!reduceMotion){points.rotation.y+=0.0009;points.rotation.x+=0.0004;}
       points.rotation.y+=mx*0.02;points.rotation.x+=my*0.02;
-      camera.position.y=-sY*0.04;camera.lookAt(0,camera.position.y*0.4,0);
+      camera.position.y=-p*120;camera.lookAt(0,0,0);
       renderer.render(scene,camera);requestAnimationFrame(tick);
     })();
   })();
