@@ -787,9 +787,12 @@ gtag('js',new Date());gtag('config','G-XXXXXXX');</script>
       const msg=`Hola Aivor, soy ${nombre}${empresa?' de '+empresa:''}.`+
         (r?` Mi reto: ${r}.`:'')+(tel?` Mi WhatsApp: ${tel}.`:'');
       track('Lead',{content_name:'landing_form',value:1});
-      /* TODO backend: enviar {nombre,empresa,tel,reto} a una serverless function
-         (Vercel /api/lead) que haga POST /api/prospects con x-crm-key.
-         NUNCA poner la llave del CRM en este HTML p√∫blico. */
+      /* Env√≠a el lead al CRM v√≠a la funci√≥n serverless /api/lead (no bloquea el flujo) */
+      try{
+        fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({nombre,empresa,telefono:tel,reto:r,
+            source:(eyebrow&&eyebrow.textContent)||'landing aivor.org'})}).catch(function(){});
+      }catch(_){}
       view.style.display='none';thanks.style.display='';
       window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank','noopener');
     });
